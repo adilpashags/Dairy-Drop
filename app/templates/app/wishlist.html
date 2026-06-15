@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Wishlist{% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+    <h2>My Wishlist</h2>
+
+    {% if wishlist %}
+        <div class="row">
+            {% for item in wishlist %}
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="{{ item.product.product_image.url }}"
+                         class="card-img-top"
+                         height="250">
+
+                    <div class="card-body">
+                        <h5>{{ item.product.title }}</h5>
+                        <p>₹{{ item.product.discounted_price }}</p>
+
+                        <a href="{% url 'product-detail' item.product.id %}"
+                           class="btn btn-primary">
+                            View Product
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <h4>No items in wishlist</h4>
+    {% endif %}
+
+</div>
+
+{% endblock main-content %}

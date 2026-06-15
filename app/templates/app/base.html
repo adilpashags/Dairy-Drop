@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="{% static 'app/images/product/neel.png' %}">
+    <link rel="shortcut icon" href="{% static 'app/images/product/neel.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+
+    <title>Dairy Drop | {% block title %}{% endblock title %}</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success py-1">
+    <div class="container">
+
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'app/images/product/neel.png' %}"
+                 width="55"
+                 height="40"
+                 alt="Logo">
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            {% if request.user.is_authenticated %}
+
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/">Home</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown">
+                        Products
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">Milkshake</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghee</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Paneer</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice Cream</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'about' %}">
+                        About Us
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'contact' %}">
+                        Contact Us
+                    </a>
+                </li>
+
+            </ul>
+
+            <form action="{% url 'search' %}" method="GET" class="d-flex me-3">
+
+    <input
+        class="form-control form-control-sm me-2"
+        type="search"
+        name="search"
+        placeholder="Search">
+
+    <button class="btn btn-light btn-sm" type="submit">
+        Search
+    </button>
+
+    </form>
+
+            <ul class="navbar-nav">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown">
+                        {{ request.user.username }}
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'profile' %}">
+                                Profile
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'orders' %}">
+                                Orders
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'passwordchange' %}">
+                                Change Password
+                            </a>
+                        </li>
+
+                        <li>
+                           <form action="{% url 'logout' %}" method="POST" style="margin:0;">
+                                {% csrf_token %}
+                                <button type="submit"
+                                        style="border:none;background:none;padding:8px 16px;width:100%;text-align:left;cursor:pointer;">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'showcart' %}" class="nav-link text-white"><span class="badge bg-danger">{% if totalitem > 0 %} {{totalitem}} {% endif %}</span> Cart</a>
+                        
+                    </a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a href="{% url 'showwishlist' %}" class="nav-link text-white"><span class="badge bg-danger">{% if wishitem > 0 %} {{wishitem}} {% endif %}</span> Wishlist
+                    <i clas="fa fa-heart"></i></a>
+                </li>
+
+            </ul>
+
+            {% else %}
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'login' %}">
+                        Login
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'customerregistration' %}">
+                        Registration
+                    </a>
+                </li>
+
+            </ul>
+
+            {% endif %}
+
+        </div>
+    </div>
+</nav>
+
+<main class="flex-fill">
+    {% block banner-slider %}{% endblock banner-slider %}
+    {% block information %}{% endblock information %}
+    {% block main-content %}{% endblock main-content %}
+    {% block payment-gateway %}{% endblock payment-gateway%}
+</main>
+
+<footer class="container-fluid bg-success text-center p-2 text-white">
+    Copyright : 2026 || Developed by : Adil
+</footer>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'app/js/all.min.js' %}"></script>
+<script src="{% static 'app/js/myscript.js' %}"></script>
+
+</body>
+</html>
