@@ -1,4 +1,4 @@
-E-Commerce Web Application
+Dairy Drop
 
 A full-stack e-commerce platform built with Django that enables users to browse products, manage carts and wishlists, place orders, and complete online payments. The application includes an administrative dashboard for managing products, customers, and orders.
 
