@@ -27,10 +27,11 @@
                     <div class="card border-0 text-center h-100">
 
                         <a href="{% url 'product-detail' prod.id %}" class="btn">
-                            <img src="{{ prod.product_image.url }}"
-                                 class="img-fluid"
-                                 style="height:220px; object-fit:contain;">
+    {% load static %}
 
+<img src="{% static 'app/images/product/' %}{{ product.product_image }}"
+     alt="{{ product.title }}"
+     >
                             <div class="fw-bold mt-2">
                                 {{ prod.title }}
                             </div>
