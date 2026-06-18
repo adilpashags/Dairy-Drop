@@ -521,3 +521,23 @@ def search(request):
 def logout_confirm(request):
     logout(request)
     return redirect('home')
+
+
+from django.http import HttpResponse
+from django.conf import settings
+import os
+
+def media_test(request):
+    file_path = os.path.join(settings.MEDIA_ROOT, "product", "tonemilk_G76PpPx.png")
+
+    return HttpResponse(
+        f"MEDIA_ROOT = {settings.MEDIA_ROOT}<br>"
+        f"Exists = {os.path.exists(file_path)}<br>"
+        f"Path = {file_path}"
+    )
+
+
+from django.http import HttpResponse
+
+def version_test(request):
+    return HttpResponse("DEPLOYMENT TEST EF4C07A")

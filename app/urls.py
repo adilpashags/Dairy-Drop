@@ -53,6 +53,9 @@ path('password-reset-confirm/<uidb64>/<token>/',auth_view.PasswordResetConfirmVi
 
 path('password-reset-complete/',auth_view.PasswordResetCompleteView.as_view(template_name='app/password_reset_complete.html'),name='password_reset_complete'),
   
+path('media-test/', views.media_test),
+path('version-test/', views.version_test),
+
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "Dairy Drop"
