@@ -31,6 +31,9 @@ urlpatterns = [
     path('pluswishlist/', views.plus_wishlist),
     path('minuswishlist/', views.minus_wishlist),
     path('wishlist/', views.show_wishlist, name='showwishlist'),
+    path("", views.home, name='home'),
+
+
 # Registration & Login
 
 

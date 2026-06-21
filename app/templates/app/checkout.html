@@ -131,8 +131,11 @@ var options = {
     "name": "Dairy Drop",
     "description": "Order Payment",
     "order_id": "{{ order_id }}",
+    "redirect": false,
 
     "handler": function (response) {
+
+        alert("Payment Successful!");
 
         console.log("Payment Success");
         console.log(response);
@@ -150,14 +153,22 @@ var options = {
             cust_id;
     },
 
+    "modal": {
+        "ondismiss": function () {
+            console.log("Checkout form closed");
+            alert("Payment popup closed");
+        }
+    },
+
     "theme": {
         "color": "#3399cc"
     }
 };
 
 var rzp1 = new Razorpay(options);
-
-var rzp1 = new Razorpay(options);
+rzp1.on('payment.submit', function (response) {
+    console.log("Payment submitted", response);
+});
 
 rzp1.on('payment.failed', function (response) {
     console.log("FAILED");
@@ -171,6 +182,8 @@ rzp1.on('payment.failed', function (response) {
 
 document.getElementById('rzp-button1').onclick = function(e) {
 
+    console.log("Opening Razorpay");
+
     var selectedAddress = document.querySelector(
         'input[name="custid"]:checked'
     );
@@ -180,7 +193,14 @@ document.getElementById('rzp-button1').onclick = function(e) {
         return;
     }
 
-    rzp1.open();
+    try {
+        rzp1.open();
+    }
+    catch(err){
+        console.log(err);
+        alert(err);
+    }
+
     e.preventDefault();
 };
 
